@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:collectskins/widgets/home.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,6 +34,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text("CollectSkins"),
         backgroundColor: Color(0xff2f3136),
       ),
+      body: Home(),
       drawer : SizedBox(
         width: MediaQuery.of(context).size.width * 0.55,
         child: Drawer(
@@ -42,10 +44,10 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 height : 200,
                 color: Color(0xff2f3136),
-                child: ListView(
+                child: Column(
                   children: <Widget>[
                     SizedBox(
-                      height : 20,
+                      height : 40,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
