@@ -53,13 +53,38 @@ class _MyHomePageState extends State<MyHomePage> {
                         Stack(
                           children: <Widget>[
                             Container(
-                              height: 50,
-                              width: 50,
+                              height: 70,
+                              width: 70,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 7,
+                                value: 0.36,
+                              ),
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(40.0),
+                              child: Image(
+                                height: 70,
+                                width: 70,
+                                image: AssetImage('assets/images/unnamed.jpg'),
+                              ),
                             )
                           ],
                         )
                       ],
                     ),
+                    Column(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text("Inigo Montoya",style: TextStyle(color: Colors.white70,fontSize: 20,fontWeight: FontWeight.bold),),
+                        Icon(Icons.star,color: Colors.white70,size: 10,),
+                        Text("sumit.kr445@gmail.com",style: TextStyle(color: Colors.white70,fontSize: 13,)),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),
