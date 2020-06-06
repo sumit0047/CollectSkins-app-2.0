@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:collectskins/widgets/Earnings.dart';
 import 'package:collectskins/widgets/Withdrawals.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:badges/badges.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -34,6 +35,161 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 20,
             ),
+            //Profile
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                color: Color(0xff2f3136),
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                      width : MediaQuery.of(context).size.width * 0.85,
+
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Color(0xff145cae),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                        child: Text("PROFILE",style: TextStyle(color: Colors.white70,fontSize: 18,),textAlign: TextAlign.center,),
+                      )
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(40.0),
+                            child: Image(
+                              height: 60,
+                              width: 60,
+                              image: AssetImage('assets/images/unnamed.jpg'),
+                            ),
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Text("Inigo Montoya",style: TextStyle(color: Colors.white70,fontSize: 20,fontWeight: FontWeight.bold),),
+                              Text("Member",style: TextStyle(color: Colors.white70,fontSize: 13,)),
+                            ],
+                          ),
+                          Stack(
+                            children: <Widget>[
+                              Container(
+                                height: 40,
+                                width: 40,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 4,
+                                  value: 0.36,
+                                ),
+                              ),
+                              Positioned(top: 7,left: 15,child: Text("7",style: TextStyle(color: Colors.white70,fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),)
+                            ],
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Badge(
+                            badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
+                            badgeColor: Colors.indigo,
+                            child: Icon(Icons.phone,color: Colors.white70,size: 30,),
+                          ),
+                          Badge(
+                            badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
+                            badgeColor: Colors.indigo,
+                            child: Icon(Icons.email,color: Colors.white70,size: 30,),
+                          ),
+                          Badge(
+                            badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
+                            badgeColor: Colors.indigo,
+                            child: Icon(Icons.track_changes,color: Colors.white70,size: 30,),
+                          ),
+                          Badge(
+                            badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
+                            badgeColor: Colors.indigo,
+                            child: Icon(Icons.message,color: Colors.white70,size: 30,),
+                          ),
+                          Badge(
+                            badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
+                            badgeColor: Colors.indigo,
+                            child: Icon(Icons.data_usage,color: Colors.white70,size: 30,),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Image(
+                            height: 30,
+                            width: 30,
+                            image: AssetImage('assets/images/coin.png'),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text("1360.90",style: TextStyle(color: Colors.white70,fontSize: 18,),textAlign: TextAlign.center,),
+
+                          Text("COINS",style: TextStyle(color: Colors.lightGreen,fontSize: 13,),textAlign: TextAlign.center,),
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Image(
+                            height: 30,
+                            width: 30,
+                            image: AssetImage('assets/images/coin.png'),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text("0.00",style: TextStyle(color: Colors.white70,fontSize: 18,),textAlign: TextAlign.center,),
+
+                          Text("ON HOLD",style: TextStyle(color: Colors.orangeAccent,fontSize: 13,),textAlign: TextAlign.center,),
+                        ],
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+            ),
+
+          //End Profile
+          SizedBox(
+            height: 10,
+          ),
+
+          //Start Referral
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
@@ -128,6 +284,8 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
+
+            //End Referral
             SizedBox(
               height: 10,
             ),
@@ -292,6 +450,9 @@ class _HomeState extends State<Home> {
               ),
             ),
 
+            SizedBox(
+              height: 10,
+            ),
             //Withdrawals
             Container(
               margin: EdgeInsets.symmetric(horizontal: 20),
