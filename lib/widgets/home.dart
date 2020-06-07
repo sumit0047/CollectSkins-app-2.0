@@ -1,8 +1,14 @@
+
+
+import 'package:collectskins/model/ModelProfile.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:collectskins/widgets/Earnings.dart';
 import 'package:collectskins/widgets/Withdrawals.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:badges/badges.dart';
+import 'dart:async';
 
 class Home extends StatefulWidget {
   @override
@@ -10,6 +16,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  Profile profile;
+  StreamSubscription _subscriptionProfile;
+  @override
+  void initState(){
+    FirebaseProfile.getProfileStream("sumit,kr445@gmail,com", _updateProfile)
+        .then((StreamSubscription s) => _subscriptionProfile = s);
+    super.initState();
+  }
+
+
   PageController _EarningsController = PageController(
     initialPage: 0,
   );
@@ -17,16 +33,37 @@ class _HomeState extends State<Home> {
     initialPage: 0,
   );
   String _ref = "CollectSkins.com/?=InigoMontoya";
+  String _userName = "name";
+  String _userRole = "role";
+  String _userLevel = "0";
+  String _userCoins = "0.00";
+  String _userCoinsOnHold = "0.00";
 
   @override
   void dispose() {
     _EarningsController.dispose();
+    _WithdrawalsController.dispose();
+    if (_subscriptionProfile != null) {
+      _subscriptionProfile.cancel();
+    }
     super.dispose();
+  }
+
+  _updateProfile(Profile value) {
+    setState((){
+      _userName = value.userName;
+      _userRole = value.userRole;
+      _userLevel = value.userLevel;
+      _userCoins = value.userCoins;
+      _userCoinsOnHold = value.userCoinsOnHold;
+
+    });
   }
 
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Container(
         child :
@@ -35,156 +72,158 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 20,
             ),
-            //Profile
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: Color(0xff2f3136),
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Container(
-                      width : MediaQuery.of(context).size.width * 0.85,
 
-                      decoration: BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: Color(0xff145cae),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                        child: Text("PROFILE",style: TextStyle(color: Colors.white70,fontSize: 18,),textAlign: TextAlign.center,),
-                      )
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(40.0),
-                            child: Image(
-                              height: 60,
-                              width: 60,
-                              image: AssetImage('assets/images/unnamed.jpg'),
-                            ),
-                          ),
-                          Column(
-                            children: <Widget>[
-                              Text("Inigo Montoya",style: TextStyle(color: Colors.white70,fontSize: 20,fontWeight: FontWeight.bold),),
-                              Text("Member",style: TextStyle(color: Colors.white70,fontSize: 13,)),
-                            ],
-                          ),
-                          Stack(
-                            children: <Widget>[
-                              Container(
-                                height: 40,
-                                width: 40,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 4,
-                                  value: 0.36,
-                                ),
-                              ),
-                              Positioned(top: 7,left: 15,child: Text("7",style: TextStyle(color: Colors.white70,fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),)
-                            ],
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Badge(
-                            badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
-                            badgeColor: Colors.indigo,
-                            child: Icon(Icons.phone,color: Colors.white70,size: 30,),
-                          ),
-                          Badge(
-                            badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
-                            badgeColor: Colors.indigo,
-                            child: Icon(Icons.email,color: Colors.white70,size: 30,),
-                          ),
-                          Badge(
-                            badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
-                            badgeColor: Colors.indigo,
-                            child: Icon(Icons.track_changes,color: Colors.white70,size: 30,),
-                          ),
-                          Badge(
-                            badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
-                            badgeColor: Colors.indigo,
-                            child: Icon(Icons.message,color: Colors.white70,size: 30,),
-                          ),
-                          Badge(
-                            badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
-                            badgeColor: Colors.indigo,
-                            child: Icon(Icons.data_usage,color: Colors.white70,size: 30,),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Image(
-                            height: 30,
-                            width: 30,
-                            image: AssetImage('assets/images/coin.png'),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text("1360.90",style: TextStyle(color: Colors.white70,fontSize: 18,),textAlign: TextAlign.center,),
-
-                          Text("COINS",style: TextStyle(color: Colors.lightGreen,fontSize: 13,),textAlign: TextAlign.center,),
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Image(
-                            height: 30,
-                            width: 30,
-                            image: AssetImage('assets/images/coin.png'),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text("0.00",style: TextStyle(color: Colors.white70,fontSize: 18,),textAlign: TextAlign.center,),
-
-                          Text("ON HOLD",style: TextStyle(color: Colors.orangeAccent,fontSize: 13,),textAlign: TextAlign.center,),
-                        ],
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-
-                  SizedBox(
-                    height: 10,
-                  ),
-                ],
-              ),
+    Container(
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              color: Color(0xff2f3136),
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.circular(5.0),
             ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                    width : MediaQuery.of(context).size.width * 0.85,
 
-          //End Profile
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Color(0xff145cae),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                      child: Text("PROFILE",style: TextStyle(color: Colors.white70,fontSize: 18,),textAlign: TextAlign.center,),
+                    )
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(40.0),
+                          child: Image(
+                            height: 60,
+                            width: 60,
+                            image: AssetImage('assets/images/unnamed.jpg'),
+                          ),
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Text(_userName,style: TextStyle(color: Colors.white70,fontSize: 20,fontWeight: FontWeight.bold),),
+                            Text(_userRole,style: TextStyle(color: Colors.white70,fontSize: 13,)),
+                          ],
+                        ),
+                        Stack(
+                          children: <Widget>[
+                            Container(
+                              height: 40,
+                              width: 40,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 4,
+                                value: 0.36,
+                              ),
+                            ),
+                            Positioned(top: 7,left: 15,child: Text(_userLevel,style: TextStyle(color: Colors.white70,fontSize: 20,fontWeight: FontWeight.bold),textAlign: TextAlign.center,),)
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Badge(
+                          badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
+                          badgeColor: Colors.indigo,
+                          child: Icon(Icons.phone,color: Colors.white70,size: 30,),
+                        ),
+                        Badge(
+                          badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
+                          badgeColor: Colors.indigo,
+                          child: Icon(Icons.email,color: Colors.white70,size: 30,),
+                        ),
+                        Badge(
+                          badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
+                          badgeColor: Colors.indigo,
+                          child: Icon(Icons.track_changes,color: Colors.white70,size: 30,),
+                        ),
+                        Badge(
+                          badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
+                          badgeColor: Colors.indigo,
+                          child: Icon(Icons.message,color: Colors.white70,size: 30,),
+                        ),
+                        Badge(
+                          badgeContent: Icon(Icons.check,color: Colors.white70,size: 10,),
+                          badgeColor: Colors.indigo,
+                          child: Icon(Icons.data_usage,color: Colors.white70,size: 30,),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Image(
+                          height: 30,
+                          width: 30,
+                          image: AssetImage('assets/images/coin.png'),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(_userCoins,style: TextStyle(color: Colors.white70,fontSize: 18,),textAlign: TextAlign.center,),
+
+                        Text("COINS",style: TextStyle(color: Colors.lightGreen,fontSize: 13,),textAlign: TextAlign.center,),
+                      ],
+                    ),
+                    Column(
+                      children: <Widget>[
+                        Image(
+                          height: 30,
+                          width: 30,
+                          image: AssetImage('assets/images/coin.png'),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(_userCoinsOnHold,style: TextStyle(color: Colors.white70,fontSize: 18,),textAlign: TextAlign.center,),
+
+                        Text("ON HOLD",style: TextStyle(color: Colors.orangeAccent,fontSize: 13,),textAlign: TextAlign.center,),
+                      ],
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+
+                SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          ),
+
+      //End Profile
+
+
           SizedBox(
             height: 10,
           ),
@@ -529,4 +568,24 @@ class _HomeState extends State<Home> {
   }
 }
 
+class FirebaseProfile {
 
+  static Future<StreamSubscription<Event>> getProfileStream(String profileKey,
+      void onData(Profile profile)) async {
+
+    StreamSubscription<Event> subscription = FirebaseDatabase.instance
+        .reference()
+        .child("users")
+        .child("users")
+        .child(profileKey)
+        .onValue
+        .listen((Event event) {
+      print(event.snapshot.value);
+      var profile = new Profile.fromJson(event.snapshot.value);
+
+      onData(profile);
+    });
+
+    return subscription;
+  }
+}
