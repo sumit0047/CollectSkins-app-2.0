@@ -1,3 +1,5 @@
+import 'package:collectskins/widgets/ChatMessage.dart';
+import 'package:collectskins/widgets/InputMessage.dart';
 import 'package:flutter/material.dart';
 import 'package:collectskins/widgets/home.dart';
 
@@ -155,48 +157,57 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       endDrawer: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.75,
+        width: MediaQuery.of(context).size.width * 1.0,
         child: Drawer(
           // column holds all the widgets in the drawer
           child: Column(
             children: <Widget>[
               Container(
-                height : 200,
+                height : MediaQuery.of(context).size.height * 0.10,
+                width: MediaQuery.of(context).size.width,
                 color: const Color(0xff2f3136),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(height: 40,),
+                    Center(
+                      child: Text("CHAT CHANNEL",style: TextStyle(color: Colors.white70,fontSize: 15,letterSpacing: 2,),textAlign: TextAlign.center,),
+                    )
+                  ],
+                )
               ),
-              Expanded(
+              Container(
+                height: MediaQuery.of(context).size.height * 0.80,
                 // ListView contains a group of widgets that scroll inside the drawer
                   child: Container(
                     color: const Color(0xff2f3136),
-                    child: Column(
-                      children: <Widget>[
-                        new ListTile(
-                          title: new Text("Home",style: TextStyle(color: Colors.white70),),
-                          leading: new Icon(Icons.home,color: Colors.white70,),
-                        ),
-                      ],
-                    ),
+                    child : ListView(
+                      reverse: true,
+                              children: <Widget>[
+                                ChatMessage(),
+                                ChatMessage(),
+                                ChatMessage(),
+                                ChatMessage(),
+                                ChatMessage(),
+                                ChatMessage(),
+                                ChatMessage(),
+                                ChatMessage(),
+                                ChatMessage(),
+                                ChatMessage(),
+                                ChatMessage(),
+                                ChatMessage(),
+                              ],
+                            ),
                   )
               ),
               // This container holds the align
               Container(
                 // This align moves the children to the bottom
-                  child: Align(
-                      alignment: FractionalOffset.bottomCenter,
-                      // This container holds all the children that will be aligned
-                      // on the bottom and should not scroll with the above ListView
-                      child: Container(
+                  height: MediaQuery.of(context).size.height * 0.10,
+                  child: Container(
                           color: const Color(0xff2f3136),
-                          child: Column(
-                            children: <Widget>[
-                              Divider(),
-                              Text('COLLECTSKINS 2020',style: TextStyle(color: Colors.white70),),
-                              Text('NOT AFFILIATED WITH',style: TextStyle(color: Colors.white70),),
-                              Text('VALVE CORPORATION',style: TextStyle(color: Colors.white70),)
-                            ],
-                          )
+                          child: InputMessage(),
                       )
-                  )
+
               )
             ],
           ),
