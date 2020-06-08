@@ -22,9 +22,12 @@ class _HomeState extends State<Home> {
   void initState(){
     FirebaseProfile.getProfileStream("sumit,kr445@gmail,com", _updateProfile)
         .then((StreamSubscription s) => _subscriptionProfile = s);
+
     super.initState();
   }
 
+  var _firebaseRef = FirebaseDatabase().reference().child("users").child("earnings").child("sumit,kr445@gmail,com");
+  var earnitempages ;
 
   PageController _EarningsController = PageController(
     initialPage: 0,
@@ -120,6 +123,7 @@ class _HomeState extends State<Home> {
                           children: <Widget>[
                             Text(_userName,style: TextStyle(color: Colors.white70,fontSize: 20,fontWeight: FontWeight.bold),),
                             Text(_userRole,style: TextStyle(color: Colors.white70,fontSize: 13,)),
+
                           ],
                         ),
                         Stack(
@@ -454,34 +458,63 @@ class _HomeState extends State<Home> {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    height: 182,
-                    child: PageView(
-                      controller: _EarningsController,
-                      children: [
-                        Earnings1(),
-                        Earnings2(),
-                        Earnings3(),
-                      ],
-                    ),
-                  ),
+                  StreamBuilder(
+                      stream: _firebaseRef.onValue,
+                      builder: (context, snap) {
+                        if (snap.hasData && !snap.hasError && snap.data.snapshot.value!=null) {
+                          Map data = snap.data.snapshot.value;
+                          List item = [];
+                          print(data);
+                          data.forEach((index, data) =>
+                              item.add({"key": index, ...data}));
 
-                  SizedBox(
-                    height: 5,
-                  ),
+                          earnitempages = (item.length/3).ceil();
+                          print("pages"+earnitempages.toString());
+                          print(item.length);
+                          return Column(
+                            children: <Widget>[
+                              Container(
+                              height: 182,
+                              child: PageView(
+                                  controller: _EarningsController,
+                                  children: [
+                              item.length > 0 ? Earnings(item,0) : Text("No data to show"),
+                        if(item.length > 3)
+                        Earnings(item,3),
+                        if(item.length > 6)
+                        Earnings(item,6),
+                        ],
+                        ),
+                        ),
+                        SizedBox(
+                        height: 5,
+                        ),
 
-                  SmoothPageIndicator(
-                    controller: _EarningsController,
-                    count:  3,
-                    effect:  WormEffect(
+                        SmoothPageIndicator(
+                        controller: _EarningsController,
+                        count:  earnitempages,
+                        effect:  WormEffect(
                         spacing:  8.0,
                         radius:  20,
                         dotWidth:  10.0,
                         dotHeight:  10.0,
                         dotColor:  Colors.grey,
                         activeDotColor:  Colors.indigo
-                    ),
+                        ),
+                        ),
+                            ],
+                          );
+                        }
+                        else
+                          return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30,vertical: 20),
+                        child : Text("No coins to show. Head over to earn tab to earn some coins",style: TextStyle(color: Colors.white70,fontSize: 18,),textAlign: TextAlign.center,),
+                        );
+                      }
                   ),
+
+
+
                   SizedBox(
                     height: 10,
                   ),
@@ -589,3 +622,4 @@ class FirebaseProfile {
     return subscription;
   }
 }
+

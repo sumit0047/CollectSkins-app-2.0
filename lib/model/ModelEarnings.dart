@@ -1,32 +1,62 @@
-class ModelEarnings{
+import 'package:firebase_database/firebase_database.dart';
+
+class Earnings{
   String provider;
   String type;
   String time;
   String coins;
 
-  ModelEarnings({
+  Earnings({
     this.provider,
     this.time,
     this.coins,
     this.type,
 });
+
+  Earnings.fromJson(Map data){
+    provider = data['provider'];
+    type = data['type'];
+    time = data['time'];
+    coins = data['coins'];
+
+    if (provider == null) {
+      provider = '';
+    }
+    if (type == null) {
+      type = '';
+    }
+    if (coins == null) {
+      coins = '';
+    }
+    if (time == null) {
+      time = '';
+    }
+  }
+
+
+  Earnings.fromSnapshot(DataSnapshot data)
+      : provider = data.value['provider'],
+        type = data.value['type'],
+        time = data.value['time'],
+        coins = data.value['coins'];
+
+
 }
 
-
-List<ModelEarnings> earnings = [
-  ModelEarnings(
+List<Earnings> earnings = [
+  Earnings(
     provider : "TheoremReach",
     type : "Survey",
     time : "10 hours ago",
     coins : "2.00",
   ),
-  ModelEarnings(
+  Earnings(
     provider : "TheoremReach",
     type : "Survey",
     time : "12 hours ago",
     coins : "2.00",
   ),
-  ModelEarnings(
+  Earnings(
     provider : "TheoremReach",
     type : "Survey",
     time : "18 hours ago",
