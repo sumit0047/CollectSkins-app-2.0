@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:collectskins/screens/Earn.dart';
 import 'package:collectskins/widgets/ChatMessage.dart';
 import 'package:collectskins/widgets/InputMessage.dart';
@@ -66,13 +67,35 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
+    GlobalKey<ScaffoldState> _ScaffoldKey = GlobalKey();
+
     return Scaffold(
+      key: _ScaffoldKey,
       backgroundColor: Color(0xff36393f),
       appBar: AppBar(
-        title: Text("CollectSkins"),
+        title: Image(image: AssetImage('assets/images/collectlogocorelnew.png',),height: 40,),
         backgroundColor: Color(0xff2f3136),
+        actions: <Widget>[
+          Badge(
+            badgeContent: Text("2",style: TextStyle(fontSize: 10,color: Colors.white70),),
+            badgeColor: Colors.indigo,
+            child: Icon(Icons.notifications,color: Colors.white70),
+            position: BadgePosition.topRight(top: 5,right: -5),
+          ),
+          SizedBox(
+            width: 30,
+          )
+        ],
       ),
       body: _getDrawerItemWidget(_selectedDrawerIndex),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _ScaffoldKey.currentState.openEndDrawer();
+        },
+        child: Icon(Icons.chat_bubble_outline),
+        backgroundColor: Color(0xff424242),
+        elevation: 10.0,
+      ),
       drawer : SizedBox(
         width: MediaQuery.of(context).size.width * 0.55,
         child: Drawer(
@@ -138,11 +161,17 @@ class _MyHomePageState extends State<MyHomePage> {
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: widget.drawerItems.length,
                             itemBuilder: (BuildContext contxt, int Index) {
-                              return new ListTile(
-                                title: new Text(widget.drawerItems[Index].title,style: TextStyle(color: Colors.white70),),
-                                leading: new Icon(widget.drawerItems[Index].icon,color: Colors.white70,),
-                                selected: Index == _selectedDrawerIndex,
-                                onTap: () => _onSelectItem(Index),
+                              return new
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: _selectedDrawerIndex == Index? Color(0xff36393f) : Color(0xff2f3136),
+                                ),
+                                child: ListTile(
+                                  title: new Text(widget.drawerItems[Index].title,style: TextStyle(color: Colors.white70),),
+                                  leading: new Icon(widget.drawerItems[Index].icon,color: Colors.white70,),
+                                  selected: Index == _selectedDrawerIndex,
+                                  onTap: () => _onSelectItem(Index),
+                                ),
                               );
                             }
                         )

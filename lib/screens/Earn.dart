@@ -8,9 +8,9 @@ class Earn extends StatefulWidget {
 class _EarnState extends State<Earn> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body : Center(
-        child: Text("hello"),
+    return SafeArea(
+      child : Center(
+        child: Text("Earn Page",style: TextStyle(color : Colors.white70),),
       ),
 
     );
