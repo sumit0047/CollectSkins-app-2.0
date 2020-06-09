@@ -1,20 +1,19 @@
-
-import 'package:collectskins/widgets/SurveyProviders.dart';
+import 'package:collectskins/widgets/p2pShop.dart';
 import 'package:flutter/material.dart';
 
-class Earn extends StatefulWidget {
+class Shop extends StatefulWidget {
   @override
-  _EarnState createState() => _EarnState();
+  _ShopState createState() => _ShopState();
 }
 
-class _EarnState extends State<Earn>
+class _ShopState extends State<Shop>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -43,40 +42,20 @@ class _EarnState extends State<Earn>
               unselectedLabelColor: Color(0xFFCDCDCD),
               tabs: [
                 Tab(
-                  child: Text('ALL',
+                  child: Text('P2P',
                       style: TextStyle(
                         fontFamily: 'Varela',
-                        fontSize: 17.0,
+                        fontSize: 21.0,
                       )),
                 ),
                 Tab(
-                  child: Text('SURVEYS',
+                  child: Text('MISC',
                       style: TextStyle(
                         fontFamily: 'Varela',
-                        fontSize: 17.0,
+                        fontSize: 21.0,
                       )),
                 ),
-                Tab(
-                  child: Text('APPS',
-                      style: TextStyle(
-                        fontFamily: 'Varela',
-                        fontSize: 17.0,
-                      )),
-                ),
-                Tab(
-                  child: Text('VIDEOS',
-                      style: TextStyle(
-                        fontFamily: 'Varela',
-                        fontSize: 17.0,
-                      )),
-                ),
-                Tab(
-                  child: Text('CLICKS',
-                      style: TextStyle(
-                        fontFamily: 'Varela',
-                        fontSize: 17.0,
-                      )),
-                ),
+
               ]),
           SizedBox(height: 10,),
           Container(
@@ -85,35 +64,18 @@ class _EarnState extends State<Earn>
               child: TabBarView(
                   controller: _tabController,
                   children: [
-                    SurveyProvider(),
+                    p2pShop(),
                     Container(
                       decoration: BoxDecoration(
                           color: Color(0xff3aa845)
                       ),
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xff3aa845)
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xff3aa845)
-                      ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xff3aa845)
-                      ),
-                    ),
+
                   ]
               )
           )
         ],
       ),
-
-      );
-
-
+    );
   }
 }

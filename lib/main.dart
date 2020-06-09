@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:collectskins/screens/Earn.dart';
+import 'package:collectskins/screens/Shop.dart';
 import 'package:collectskins/widgets/ChatMessage.dart';
 import 'package:collectskins/widgets/InputMessage.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
         return new Home();
       case 1:
         return new Earn();
-
+      case 2:
+        return new Shop();
       default:
         return new Text("Error");
     }
