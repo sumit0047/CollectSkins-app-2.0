@@ -109,7 +109,7 @@ class _FilterDialogState extends State<FilterDialog> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             RaisedButton(onPressed: (){
-              widget.callback(fromController.text,toController.text);
+              widget.callback((int.parse(fromController.text)*10).toString(),(int.parse(toController.text)*10).toString());
               return Navigator.of(context).pop(true);
             }, child: Text('APPLY FILTER'), color: Colors.black12, textColor: Colors.white70,)
           ],
