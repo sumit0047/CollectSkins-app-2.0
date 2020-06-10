@@ -25,7 +25,7 @@ class _SurveyProviderState extends State<SurveyProvider> {
               _ShopItem("AdscendMedia offer a huge variety of offers mostly popular in US,UK,GER.","https://app.collectskins.com/_nuxt/img/e7194e0.png",false,"0%", context),
               _ShopItem("HideoutTV allows you to earn coins watching videos and ads works best in US,UK,AUS,GER", "https://app.collectskins.com/_nuxt/img/1895417.png",false,"0%", context),
               _ShopItem("Adgem mostly has high paying mobile games that pay out anywhere from 300 to 1000+ coins.","https://app.collectskins.com/_nuxt/img/d690066.png",false,"0%", context),
-              _ShopItem("Theoremreach offers simple and fast surveys. If you disqualify they even offer a small reward.","https://app.collectskins.com/_nuxt/img/cd627b5.png",false,"0%", context),
+              _ShopItem("Theoremreach offers simple and fast surveys. If you disqualify they even offer a small reward.","https://app.collectskins.com/_nuxt/img/cd627b5.png",true,"25%", context),
               _ShopItem("AdscendMedia offer a huge variety of offers mostly popular in US,UK,GER.","https://app.collectskins.com/_nuxt/img/e7194e0.png",false,"0%", context),
               _ShopItem("HideoutTV allows you to earn coins watching videos and ads works best in US,UK,AUS,GER", "https://app.collectskins.com/_nuxt/img/1895417.png",false,"0%", context),
               _ShopItem("Adgem mostly has high paying mobile games that pay out anywhere from 300 to 1000+ coins.","https://app.collectskins.com/_nuxt/img/d690066.png",false,"0%", context),
@@ -50,13 +50,22 @@ class _SurveyProviderState extends State<SurveyProvider> {
                     spreadRadius: 3.0,
                     blurRadius: 5.0)
               ],
-              color: Colors.white60),
+              color: Colors.white70),
           child: Column(
             children: <Widget>[
-              Image(image: NetworkImage(img,),height: 70,width: 150,),
-              Text(name,style: TextStyle(color: Colors.black87,),textAlign: TextAlign.center,),
+              Padding(
+                padding: const EdgeInsets.only(left: 5,right: 5,top: 5),
+                child: Image(image: NetworkImage(img,),height: 60,width: 150,),
+              ),
+              Container(
+                height: 75,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: Text(name,style: TextStyle(color: Colors.black87,fontSize: 13.7),textAlign: TextAlign.center,),
+                ),
+              ),
               SizedBox(
-                height: 10,
+                height: 5,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -89,7 +98,7 @@ class _SurveyProviderState extends State<SurveyProvider> {
                   ),
               )
                   : SizedBox(
-                height: 10,
+                height: 1,
               )
             ],
           )

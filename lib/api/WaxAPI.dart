@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 const baseUrl = "https://api.waxpeer.com/v1";
 
 class API {
-  static Future getItems(int startFrom) {
-    var url = baseUrl + '/get-items-list?api=4c4f30f71ff7b553c2dc4d7d2b28ca153aaa69b85254ce2c1175ecf5e51371c0&skip=' + startFrom.toString() + '&order_by=best_deals&max_price=5000&minified=0&game=csgo';
+  static Future getItems(int startFrom,String search,String from,String to) {
+    var url = baseUrl + '/get-items-list?api=4c4f30f71ff7b553c2dc4d7d2b28ca153aaa69b85254ce2c1175ecf5e51371c0&skip=' + startFrom.toString() + '&search=' +search.toString() +'&order_by=best_deals&max_price='+to.toString()+'&min_price='+from.toString()+'&minified=0&game=csgo';
     return http.get(url);
   }
 }

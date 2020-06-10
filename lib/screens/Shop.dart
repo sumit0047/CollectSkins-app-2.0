@@ -9,9 +9,14 @@ class Shop extends StatefulWidget {
 
 class _ShopState extends State<Shop>
     with SingleTickerProviderStateMixin {
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalObjectKey<ScaffoldState>('TabScreen');
   TabController _tabController;
 
-
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -21,8 +26,10 @@ class _ShopState extends State<Shop>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child : Column(
+    return Scaffold(
+      backgroundColor: Color(0xff36393f),
+      key: _scaffoldKey,
+      body : Column(
 
         children: <Widget>[
           SizedBox(
