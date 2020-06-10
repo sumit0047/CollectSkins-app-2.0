@@ -72,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
     GlobalKey<ScaffoldState> _ScaffoldKey = GlobalKey();
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       key: _ScaffoldKey,
       backgroundColor: Color(0xff36393f),
       appBar: AppBar(

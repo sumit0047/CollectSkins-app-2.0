@@ -1,3 +1,4 @@
+
 import 'package:collectskins/widgets/p2pShop.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,8 @@ class Shop extends StatefulWidget {
 class _ShopState extends State<Shop>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+
+
 
   @override
   void initState() {
@@ -58,9 +61,9 @@ class _ShopState extends State<Shop>
 
               ]),
           SizedBox(height: 10,),
+
           Container(
-              height: MediaQuery.of(context).size.height * 0.79,
-              width: double.infinity,
+              height: MediaQuery.of(context).size.height * 0.795,
               child: TabBarView(
                   controller: _tabController,
                   children: [
