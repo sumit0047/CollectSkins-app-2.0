@@ -45,6 +45,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  GlobalKey<ScaffoldState> _scaffoldHomeKey = new GlobalObjectKey<ScaffoldState>('Home');
+
   int _selectedDrawerIndex = 0;
 
   _getDrawerItemWidget(int pos) {
@@ -69,11 +71,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
 
-    GlobalKey<ScaffoldState> _ScaffoldKey = GlobalKey();
 
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      key: _ScaffoldKey,
+      key: _scaffoldHomeKey,
       backgroundColor: Color(0xff36393f),
       appBar: AppBar(
         title: Image(image: AssetImage('assets/images/collectlogocorelnew.png',),height: 40,),
@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: _getDrawerItemWidget(_selectedDrawerIndex),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _ScaffoldKey.currentState.openEndDrawer();
+          _scaffoldHomeKey.currentState.openEndDrawer();
         },
         child: Icon(Icons.chat_bubble_outline),
         backgroundColor: Color(0xff424242),
